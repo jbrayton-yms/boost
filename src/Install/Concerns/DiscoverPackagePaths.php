@@ -105,7 +105,12 @@ trait DiscoverPackagePaths
             return null;
         }
 
-        $path = implode(DIRECTORY_SEPARATOR, [$package->path(), 'resources', 'boost', $subpath]);
+        // Roster v0.2.x doesn't have Package::path(), so derive it from rawName()
+        $packagePath = method_exists($package, 'path')
+            ? $package->path()
+            : base_path('vendor'.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $package->rawName()));
+
+        $path = implode(DIRECTORY_SEPARATOR, [$packagePath, 'resources', 'boost', $subpath]);
 
         return is_dir($path) ? $path : null;
     }
