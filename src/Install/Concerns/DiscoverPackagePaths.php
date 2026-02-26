@@ -25,14 +25,14 @@ trait DiscoverPackagePaths
     ];
 
     /**
-     * Packages excluded from Roster-based guideline discovery.
+     * Package names excluded from Roster-based guideline discovery.
      * Boost is already loaded by getCoreGuidelines(); Sail requires explicit opt-in.
      *
-     * @var array<int, Packages>
+     * @var array<int, string>
      */
-    protected array $excludedPackages = [
-        Packages::BOOST,
-        Packages::SAIL,
+    protected array $excludedPackageNames = [
+        'boost',
+        'sail',
     ];
 
     abstract protected function getRoster(): Roster;
@@ -51,7 +51,7 @@ trait DiscoverPackagePaths
 
     protected function shouldExcludePackage(Package $package): bool
     {
-        if (in_array($package->package(), $this->excludedPackages, true)) {
+        if (in_array($package->package()->value, $this->excludedPackageNames, true)) {
             return true;
         }
 
