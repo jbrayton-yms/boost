@@ -32,6 +32,9 @@
         "rector/rector": "^2.1"
     },
     "autoload": {
+        "files": [
+            "src/Support/prompts-compat.php"
+        ],
         "psr-4": {
             "Laravel\\Boost\\": "src/"
         }
